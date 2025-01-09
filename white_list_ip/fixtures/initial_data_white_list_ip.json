@@ -1,0 +1,303 @@
+[
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 1,
+    "fields": {
+      "ip_address": "217.24.179.209"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 2,
+    "fields": {
+      "ip_address": "188.232.142.94"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 3,
+    "fields": {
+      "ip_address": "94.140.147.181"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 4,
+    "fields": {
+      "ip_address": "5.141.89.60"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 5,
+    "fields": {
+      "ip_address": "62.16.42.68"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 6,
+    "fields": {
+      "ip_address": "92.43.191.235"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 7,
+    "fields": {
+      "ip_address": "178.46.107.220"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 8,
+    "fields": {
+      "ip_address": "5.140.67.229"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 9,
+    "fields": {
+      "ip_address": "95.26.75.158"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 10,
+    "fields": {
+      "ip_address": "95.29.106.10"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 11,
+    "fields": {
+      "ip_address": "194.67.32.215"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 12,
+    "fields": {
+      "ip_address": "94.140.137.109"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 13,
+    "fields": {
+      "ip_address": "127.0.0.1"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 14,
+    "fields": {
+      "ip_address": "178.46.74.199"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 15,
+    "fields": {
+      "ip_address": "188.234.212.90"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 16,
+    "fields": {
+      "ip_address": "94.31.176.183"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 17,
+    "fields": {
+      "ip_address": "5.141.234.39"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 18,
+    "fields": {
+      "ip_address": "37.113.176.56"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 19,
+    "fields": {
+      "ip_address": "188.234.103.23"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 20,
+    "fields": {
+      "ip_address": "103.79.255.219"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 21,
+    "fields": {
+      "ip_address": "176.226.242.104"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 22,
+    "fields": {
+      "ip_address": "94.50.112.93"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 23,
+    "fields": {
+      "ip_address": "87.249.198.90"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 24,
+    "fields": {
+      "ip_address": "51.158.205.14"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 25,
+    "fields": {
+      "ip_address": "185.42.145.247"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 26,
+    "fields": {
+      "ip_address": "94.140.135.155"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 27,
+    "fields": {
+      "ip_address": "178.46.65.225"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 28,
+    "fields": {
+      "ip_address": "85.115.189.110"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 29,
+    "fields": {
+      "ip_address": "178.46.81.150"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 30,
+    "fields": {
+      "ip_address": "79.110.251.190"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 31,
+    "fields": {
+      "ip_address": "178.46.108.71"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 32,
+    "fields": {
+      "ip_address": "94.190.18.236"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 33,
+    "fields": {
+      "ip_address": "5.165.29.77"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 34,
+    "fields": {
+      "ip_address": "188.226.127.228"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 35,
+    "fields": {
+      "ip_address": "85.140.25.3"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 36,
+    "fields": {
+      "ip_address": "176.215.13.139"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 37,
+    "fields": {
+      "ip_address": "91.229.111.203"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 38,
+    "fields": {
+      "ip_address": "94.140.146.159"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 39,
+    "fields": {
+      "ip_address": "212.220.231.64"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 40,
+    "fields": {
+      "ip_address": "87.249.215.59"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 41,
+    "fields": {
+      "ip_address": "188.234.212.90"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 42,
+    "fields": {
+      "ip_address": "212.49.120.102"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 43,
+    "fields": {
+      "ip_address": "212.49.109.5"
+    }
+  }
+]

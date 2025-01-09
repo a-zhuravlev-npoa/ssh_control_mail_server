@@ -1,0 +1,21 @@
+asgiref==3.8.1
+Django==5.0.4
+django-cacheops==7.0.2
+django-debug-toolbar==4.3.0
+django-debug-toolbar-template-timings==0.9
+django-redis==5.4.0
+django-tinymce==4.0.0
+et-xmlfile==1.1.0
+funcy==2.0
+#sudo apt-get install python3-dev default-libmysqlclient-dev build-essential pkg-config
+mysqlclient==2.2.4
+openpyxl==3.1.2
+pillow==10.3.0
+redis==5.0.4
+six==1.16.0
+sqlparse==0.5.0
+transliterate==1.10.2
+python-docx==1.1.2
+#sudo apt install libffi-dev
+sympy==1.13.3
+djangorestframework==3.15.2

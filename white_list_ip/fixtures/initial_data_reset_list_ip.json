@@ -1,0 +1,18 @@
+[
+  {
+    "model": "white_list_ip.ResetListIP",
+    "pk": 1,
+    "fields": {
+      "ip_address": "45.86.39.92",
+      "comment": "Почтовый сервер"
+    }
+  },
+  {
+    "model": "white_list_ip.ResetListIP",
+    "pk": 2,
+    "fields": {
+      "ip_address": "127.0.0.1",
+      "comment": "Локальный сервер"
+    }
+  }
+]
