@@ -47,7 +47,7 @@ class ResetIPListView(APIView):
             WhiteListIP.objects.all().delete()
             cmd = "python manage.py loaddata initial_data_white_list_ip"
             os.system(cmd)
-            cmd = "cd root;sudo ./iptables_restore_script"
+            cmd = "cd /root/;sudo ./iptables_restore_script"
             os.system(cmd)
 
         return result
