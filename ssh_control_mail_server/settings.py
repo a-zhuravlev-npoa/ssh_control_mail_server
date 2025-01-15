@@ -31,8 +31,8 @@ DB_USER = 'ssh-control'
 DB_PASS = '8kLyu5p0qBe*3*Sn'
 DB_HOST = 'localhost'
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+STATIC_URL = '/set-ip/static/'
+MEDIA_URL = '/set-ip/media/'
 
 ALLOWED_HOSTS = ['*']
 
@@ -92,6 +92,8 @@ if os.path.exists('{}/project_ip'.format(str(BASE_DIR))):
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+    STATIC_URL = 'http://mail.him-met.ru:83/set-ip/static/'
+    MEDIA_URL = 'http://mail.him-met.ru:83/set-ip/media/'
 else:
     DATABASES = {
         'default': {
@@ -149,7 +151,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
+STATIC_ROOT = '{}/static/'.format(BASE_DIR)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
