@@ -31,8 +31,8 @@ DB_USER = 'ssh-control'
 DB_PASS = '8kLyu5p0qBe*3*Sn'
 DB_HOST = 'localhost'
 
-STATIC_URL = '/set-ip/static/'
-MEDIA_URL = '/set-ip/media/'
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 ALLOWED_HOSTS = ['*']
 
@@ -92,8 +92,8 @@ if os.path.exists('{}/project_ip'.format(str(BASE_DIR))):
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-    STATIC_URL = 'http://mail.him-met.ru:83/set-ip/static/'
-    MEDIA_URL = 'http://mail.him-met.ru:83/set-ip/media/'
+    STATIC_URL = 'http://mail.him-met.ru:83/static/'
+    MEDIA_URL = 'http://mail.him-met.ru:83/media/'
 else:
     DATABASES = {
         'default': {
