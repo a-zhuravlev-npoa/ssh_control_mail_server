@@ -48,6 +48,7 @@ class ResetIPListView(APIView):
             
             WhiteListIP.objects.all().delete()
             cmd = f"cd /home/ssh-control;{PYTHON_PATH} manage.py loaddata initial_data_white_list_ip"
+            print(cmd)
             os.system(cmd)
             cmd = "cd /root/;sudo ./iptables_restore_script"
             os.system(cmd)
