@@ -31,6 +31,8 @@ DB_USER = 'ssh-control'
 DB_PASS = '8kLyu5p0qBe*3*Sn'
 DB_HOST = 'localhost'
 
+PYTHON_PATH = '~/env/bin/python'
+
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
@@ -94,6 +96,7 @@ if os.path.exists('{}/project_ip'.format(str(BASE_DIR))):
     }
     STATIC_URL = 'http://mail.him-met.ru:83/static/'
     MEDIA_URL = 'http://mail.him-met.ru:83/media/'
+    PYTHON_PATH = 'python'
 else:
     DATABASES = {
         'default': {
