@@ -3,7 +3,7 @@ from django.db import models
 
 class WhiteListIP(models.Model):
     ip_address = models.GenericIPAddressField(verbose_name="IP адрес")
-    comment = models.CharField(verbose_name="Комментарий", max_length=1024, default='')
+    comment = models.TextField(verbose_name="Комментарий", default='')
 
     def __str__(self):
         return self.ip_address
