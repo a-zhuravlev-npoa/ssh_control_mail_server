@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from white_list_ip.models import WhiteListIP, ResetListIP
-from .settings import PYTHON_PATH
+from .settings import PYTHON_PATH, BASE_DIR
 
 class SetIPView(APIView):
     def get(self, request):
@@ -47,10 +47,10 @@ class ResetIPListView(APIView):
             print(f"RESET from {ip_address}")
             
             WhiteListIP.objects.all().delete()
-            cmd = f"cd /home/ssh-control;{PYTHON_PATH} manage.py loaddata initial_data_white_list_ip"
+            cmd = f"cd {BASE_DIR};{PYTHON_PATH} manage.py loaddata initial_data_white_list_ip"
             print(cmd)
             os.system(cmd)
-            cmd = "cd /root/;sudo ./iptables_restore_script"
+            cmd = "cd /home/ssh-control/;sudo ./iptables_restore_script"
             os.system(cmd)
 
         return result
