@@ -31,7 +31,7 @@ DB_USER = 'ssh-control'
 DB_PASS = '8kLyu5p0qBe*3*Sn'
 DB_HOST = 'localhost'
 
-PYTHON_PATH = '~/env/bin/python'
+PYTHON_PATH = '/home/ssh-control/env/bin/python'
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
