@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import WhiteListIP, ResetListIP
 
 class WhiteListIPAdmin(admin.ModelAdmin):
-    list_display = ('ip_address', 'comment')
+    list_display = ('ip_address', 'date', 'comment')
 
 
 admin.site.register(WhiteListIP, WhiteListIPAdmin)
