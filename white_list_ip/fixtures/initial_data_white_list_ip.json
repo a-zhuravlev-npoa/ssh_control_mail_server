@@ -297,7 +297,14 @@
     "model": "white_list_ip.WhiteListIP",
     "pk": 43,
     "fields": {
-      "ip_address": "212.49.109.5"
+      "ip_address": "212.49.109.54"
+    }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 44,
+    "fields": {
+      "ip_address": "212.42.56.147"
     }
   }
 ]
