@@ -33,8 +33,10 @@ DB_HOST = 'localhost'
 
 PYTHON_PATH = '/home/ssh-control/env/bin/python'
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+# STATIC_URL = '/static/'
+# MEDIA_URL = '/media/'
+STATIC_URL = 'http://mail.him-met.ru:83/static/'
+MEDIA_URL = 'http://mail.him-met.ru:83/media/'
 
 ALLOWED_HOSTS = ['*']
 
