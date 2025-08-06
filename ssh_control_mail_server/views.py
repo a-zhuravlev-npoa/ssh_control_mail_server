@@ -16,7 +16,9 @@ class SetIPView(APIView):
     
     def _set_ip(self, request):
         result = "OK"
-        ip_address = request.META.get('REMOTE_ADDR')
+        ip_address = request.GET.get('ip_address', '')
+        if not ip_address:
+            ip_address = request.META.get('REMOTE_ADDR')
         name = request.GET.get('name', '')
         if name and not WhiteListIP.objects.filter(ip_address=ip_address):
             user_agent = request.META.get("HTTP_USER_AGENT")
