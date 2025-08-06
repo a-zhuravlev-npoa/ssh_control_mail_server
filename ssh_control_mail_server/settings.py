@@ -33,8 +33,8 @@ DB_HOST = 'localhost'
 
 PYTHON_PATH = '/home/ssh-control/env/bin/python'
 
-STATIC_URL = '/static_ip/'
-MEDIA_URL = '/media_ip/'
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 ALLOWED_HOSTS = ['*']
 
@@ -100,8 +100,8 @@ if os.path.exists('{}/project_ip'.format(str(BASE_DIR))):
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-    STATIC_URL = 'https://mail.him-met.ru/static_ip/'
-    MEDIA_URL = 'https://mail.him-met.ru/media_ip/'
+    STATIC_URL = 'http://mail.him-met.ru:83/static/'
+    MEDIA_URL = 'http://mail.him-met.ru:83/media/'
     PYTHON_PATH = 'python'
 else:
     DATABASES = {
