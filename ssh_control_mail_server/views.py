@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from white_list_ip.models import WhiteListIP, ResetListIP
+from stats.models import StatsAddListIP
 from .settings import PYTHON_PATH, BASE_DIR
 
 class SetIPView(APIView):
@@ -24,6 +25,9 @@ class SetIPView(APIView):
             user_agent = request.META.get("HTTP_USER_AGENT")
             new_ip = WhiteListIP(ip_address=ip_address, name=name, comment=user_agent)
             new_ip.save()
+
+            stats_ip = StatsAddListIP(ip_address=ip_address, name=name, comment=user_agent)
+            stats_ip.save()
 
             print(f"ADD {ip_address}")
             cmd = f"sudo iptables -I INPUT -s {ip_address} -p tcp -m multiport --dports 80,443,993,587,25,110,143,465,585,995 -j ACCEPT"

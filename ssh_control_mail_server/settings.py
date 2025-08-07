@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'white_list_ip',
+    'stats',
 ]
 
 MIDDLEWARE = [
