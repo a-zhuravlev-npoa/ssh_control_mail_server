@@ -7,3 +7,5 @@ touch_reload
 db.sqlite3
 
 project_ip
+
+_tmp_result.txt

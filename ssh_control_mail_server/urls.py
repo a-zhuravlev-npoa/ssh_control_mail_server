@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 from .views import SetIPView, ResetIPListView
 
@@ -23,4 +23,5 @@ urlpatterns = [
     path('set-ip/admin/', admin.site.urls),
     path('set-ip/', SetIPView.as_view(), name='set-ip'),
     path('set-ip/reset/', ResetIPListView.as_view(), name='reset-ip-list'),
+    path('set-ip/update-stats/', include('stats.urls')),
 ]

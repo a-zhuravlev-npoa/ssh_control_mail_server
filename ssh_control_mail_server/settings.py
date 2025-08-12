@@ -116,6 +116,7 @@ else:
             'CONN_MAX_AGE': 60 * 10,  # 10 minutes
         }
     }
+    DEBUG = False
 
 
 # user: ssh-control pass: cc[66-2025 ("ссх66-2025" на латинской раскладке)
