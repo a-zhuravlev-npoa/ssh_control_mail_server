@@ -101,8 +101,8 @@ if os.path.exists('{}/project_ip'.format(str(BASE_DIR))):
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-    STATIC_URL = 'http://mail.him-met.ru:83/static/'
-    MEDIA_URL = 'http://mail.him-met.ru:83/media/'
+    STATIC_URL = 'http://mail.him-met.ru:83/static_ip/'
+    MEDIA_URL = 'http://mail.him-met.ru:83/media_ip/'
     PYTHON_PATH = 'python'
 else:
     DATABASES = {
@@ -163,7 +163,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 # STATIC_URL = 'static/'
-STATIC_ROOT = '{}/static/'.format(BASE_DIR)
+STATIC_ROOT = '{}/static_ip/'.format(BASE_DIR)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
