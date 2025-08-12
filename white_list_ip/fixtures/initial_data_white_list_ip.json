@@ -190,5 +190,13 @@
       "ip_address": "212.49.120.102",
       "name": "Олеся"
     }
+  },
+  {
+    "model": "white_list_ip.WhiteListIP",
+    "pk": 25,
+    "fields": {
+      "ip_address": "87.248.239.147",
+      "name": "Администратор почты SSH"
+    }
   }
 ]
