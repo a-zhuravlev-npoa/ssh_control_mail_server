@@ -32,6 +32,7 @@
 -A INPUT -s 212.49.109.54/32 -p tcp -m multiport --dports 80,443,993,587,25,110,143,465,585,995 -j ACCEPT
 -A INPUT -s 212.42.56.147/32 -p tcp -m multiport --dports 80,443,993,587,25,110,143,465,585,995 -j ACCEPT
 -A INPUT -s 212.49.120.102/32 -p tcp -m multiport --dports 80,443,993,587,25,110,143,465,585,995 -j ACCEPT
+-A INPUT -s 87.248.239.147/32 -p tcp -m multiport --dports 80,443,993,587,25,110,143,465,585,995 -j ACCEPT
 -A INPUT -p tcp -m multiport --dports 80,443,993,110,143,465,585,995 -j DROP
 -A FORWARD -j DOCKER-USER
 -A FORWARD -j DOCKER-ISOLATION-STAGE-1
