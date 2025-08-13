@@ -57,7 +57,7 @@ class ResetIPListView(APIView):
             cmd = f"cd {BASE_DIR};{PYTHON_PATH} manage.py loaddata initial_data_white_list_ip"
             print(cmd)
             os.system(cmd)
-            cmd = "cd /home/ssh-control/;sudo ./iptables_restore_script"
+            cmd = f"cd {BASE_DIR};sudo ./iptables_restore_script"
             os.system(cmd)
 
         return result
