@@ -17,7 +17,7 @@ class UpdateStatsView(APIView):
     def _update_stats_login(self, request):
         result = "OK"
         if not DEBUG:
-            cmd = 'cd /home/ssh-control/;sudo cat /var/log/mail.log | grep "login " > _tmp_result.txt'
+            cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "login " > _tmp_result.txt'
             os.system(cmd)
         file = open(f"{BASE_DIR}/_tmp_result.txt", "r")
         content_lines = file.read().split('\n')
