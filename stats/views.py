@@ -121,8 +121,9 @@ class UpdateStatsView(APIView):
                             new_active_stat.date_start_active = date_start_active
                             new_active_stat.date_end_active = date_start_active
                             new_active_stat.save()
-            new_active_stat.date_end_active = date_end_active
-            new_active_stat.save()
+            if date_start_active:
+                new_active_stat.date_end_active = date_end_active
+                new_active_stat.save()
 
     def _update_stats_base_mail(self, current_date):
         server_email_list = StatsServerMail.objects.order_by('email').distinct().values_list('email')
