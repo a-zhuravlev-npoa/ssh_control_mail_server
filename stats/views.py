@@ -115,12 +115,12 @@ class UpdateStatsView(APIView):
             except BaseException:
                 count_input_info_email = -1
             file.close()
-
-            new_base_stat = StatsBaseMail.objects.filter(email=item, date=current_date).first()
-            if not new_base_stat:
-                new_base_stat = StatsBaseMail(email=item, 
-                                            date=current_date)
-            new_base_stat.count_input_email=count_input_email
-            new_base_stat.count_output_email=count_output_email
-            new_base_stat.count_input_info_email=count_input_info_email
-            new_base_stat.save()
+            if count_input_email or count_output_email or count_input_info_email:
+                new_base_stat = StatsBaseMail.objects.filter(email=item, date=current_date).first()
+                if not new_base_stat:
+                    new_base_stat = StatsBaseMail(email=item, 
+                                                date=current_date)
+                new_base_stat.count_input_email=count_input_email
+                new_base_stat.count_output_email=count_output_email
+                new_base_stat.count_input_info_email=count_input_info_email
+                new_base_stat.save()
