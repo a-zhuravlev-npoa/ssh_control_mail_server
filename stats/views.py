@@ -134,7 +134,7 @@ class UpdateStatsView(APIView):
             item = item[0]
             item_name = StatsServerMail.objects.get(email=item).name
             if not DEBUG:
-                cmd = f'cd {BASE_DIR}/;sudo cat /var/log/dovecot/imap.log | grep "> <{item}>" | grep "imap-login: Login" | grep {current_date} > _tmp_result.txt'
+                cmd = f'cd {BASE_DIR}/;sudo cat /var/log/dovecot/imap.log | grep {item} | grep "imap-login: Login" | grep {current_date} > _tmp_result.txt'
                 os.system(cmd)
 
             file = open(f"{BASE_DIR}/_tmp_result.txt", "r")
