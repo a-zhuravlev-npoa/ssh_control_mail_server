@@ -12,6 +12,7 @@ class StatsAddListIP(models.Model):
 
     class Meta:
         verbose_name_plural = "История добавления динамических IP адресов"
+        ordering = ['-date']
 
 
 class StatsLoginMail(models.Model):
@@ -41,6 +42,7 @@ class StatsServerMail(models.Model):
 
     class Meta:
         verbose_name_plural = "Перечень существующих на сервере почт"
+        ordering = ['email']
 
 
 class StatsBaseMail(models.Model):
@@ -59,6 +61,7 @@ class StatsBaseMail(models.Model):
 
     class Meta:
         verbose_name_plural = "Общая статистика по почтам"
+        ordering = ['-date', 'email']
 
 
 class StatsActiveMail(models.Model):
@@ -73,6 +76,7 @@ class StatsActiveMail(models.Model):
 
     class Meta:
         verbose_name_plural = "Активность работы на почте"
+        ordering = ['-date_start_active', 'email']
 
     
 class StatsIPMail(models.Model):
@@ -87,3 +91,4 @@ class StatsIPMail(models.Model):
 
     class Meta:
         verbose_name_plural = "IP которые работали на почтовом сервере"
+        ordering = ['-date_start_active', 'ip_address']
