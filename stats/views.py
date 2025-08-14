@@ -69,7 +69,7 @@ class UpdateStatsView(APIView):
         return result
     
     def _update_stats_server_mail(self):
-        stat_server_email = StatsLoginMail.objects.order_by('email').distinct().values_list('email')
+        stat_server_email = StatsLoginMail.objects.filter(result='Разрешен').order_by('email').distinct().values_list('email')
         server_email_list = StatsServerMail.objects.order_by('email').distinct().values_list('email')
         for item in stat_server_email:
             if item not in server_email_list:
