@@ -47,11 +47,11 @@ class StatsBaseMail(models.Model):
     email = models.CharField(max_length=1024, verbose_name="Адрес электронной почты")
     date = models.DateField(verbose_name="Дата", blank=True, null=True)
     name = models.CharField(max_length=1024, verbose_name="Имя пользователя", blank=True, null=True, default='')
-    count_input_email = models.IntegerField(verbose_name="Количество входящих писем", blank=True, null=True)
-    count_output_email = models.IntegerField(verbose_name="Количество исходящих писем", blank=True, null=True)
-    count_input_info_email = models.IntegerField(verbose_name="Количество рекламных писем (входящих с info)", blank=True, null=True)
-    count_output_bill_email = models.IntegerField(verbose_name="Количество отправленных счетов", blank=True, null=True)
-    count_output_kp_email = models.IntegerField(verbose_name="Количество отправленных КП", blank=True, null=True)
+    count_input_email = models.IntegerField(verbose_name="Количество входящих", blank=True, null=True)
+    count_output_email = models.IntegerField(verbose_name="Количество исходящих", blank=True, null=True)
+    count_input_info_email = models.IntegerField(verbose_name="Количество рекламных (входящих с info)", blank=True, null=True)
+    count_output_bill_email = models.IntegerField(verbose_name="Количество счетов", blank=True, null=True)
+    count_output_kp_email = models.IntegerField(verbose_name="Количество КП", blank=True, null=True)
     comment = models.TextField(verbose_name="Комментарий", blank=True, null=True, default='')
 
     def __str__(self):
