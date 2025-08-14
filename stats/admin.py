@@ -21,7 +21,7 @@ class StatsServerMailAdmin(admin.ModelAdmin):
 
 
 class StatsBaseMailAdmin(admin.ModelAdmin):
-    list_display = ('email', 'date', 'name', 'count_input_email', 'count_output_email', 'count_input_info_email', 'count_output_bill_email', 'count_output_kp_email', 'comment')
+    list_display = ('email', 'date', 'name', 'count_input_email', 'count_output_email', 'count_input_info_email', 'count_output_bill_email', 'count_output_kp_email' ,'active_info', 'comment')
     date_hierarchy = 'date'
     search_fields = ('email', 'name')
     list_filter = ('email',)

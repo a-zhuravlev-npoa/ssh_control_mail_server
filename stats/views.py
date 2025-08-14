@@ -12,11 +12,12 @@ INFO_EMAIL = 'info@himmetproduct.ru'
 
 class UpdateStatsView(APIView):
     def get(self, request):
+        result = "OK"
         current_date = date.today().isoformat()
-        result = self._update_stats_login()
+        self._update_stats_login()
         self._update_stats_server_mail()
-        self._update_stats_base_mail(current_date)
         self._update_stats_active_mail(current_date)
+        self._update_stats_base_mail(current_date)
         # self._update_stats_ip_mail(current_date)
         return Response({'result': result})
     
@@ -126,6 +127,13 @@ class UpdateStatsView(APIView):
                 new_base_stat.count_input_email=count_input_email
                 new_base_stat.count_output_email=count_output_email
                 new_base_stat.count_input_info_email=count_input_info_email
+
+                email_active_list = StatsActiveMail.objects.filter(email=item, 
+                                                                   date_start_active__gte=current_date,
+                                                                   date_start_active__lt=datetime.fromisoformat(current_date) + timedelta(days=1)).order_by('date_start_active')
+                new_base_stat.active_info = ""
+                for item_active in email_active_list:
+                    new_base_stat.active_info += f"{item_active.date_start_active.time().strftime('%H:%M:%S')}-{item_active.date_end_active.time().strftime('%H:%M:%S')}\n"  #pyright: ignore
                 new_base_stat.save()
 
     def _update_stats_active_mail(self, current_date):
