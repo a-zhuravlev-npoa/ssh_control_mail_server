@@ -19,7 +19,7 @@ class UpdateStatsView(APIView):
         self._update_stats_server_mail()
         self._update_stats_active_mail(current_date)
         self._update_stats_base_mail(current_date)
-        # self._update_stats_ip_mail(current_date)
+        self._update_stats_ip_mail(current_date)
         return Response({'result': result})
     
     def _update_stats_login(self):
@@ -79,6 +79,51 @@ class UpdateStatsView(APIView):
                 new_email = StatsServerMail(email=item[0])
                 new_email.save()
 
+    def _update_stats_active_mail(self, current_date):
+        server_email_list = StatsServerMail.objects.order_by('email').distinct().values_list('email')
+        for item in server_email_list:
+            item = item[0]
+            item_name = StatsServerMail.objects.get(email=item).name
+            if not DEBUG:
+                cmd = f'cd {BASE_DIR}/;sudo cat /var/log/dovecot/imap.log | grep {item} | grep "imap-login: Login" | grep {current_date} > _tmp_result.txt'
+                os.system(cmd)
+
+            file = open(f"{BASE_DIR}/_tmp_result.txt", "r")
+            content_lines = file.read().split('\n')
+            file.close()
+            date_start_active = ""
+            for line in content_lines:
+                if line:
+                    line_items = line.split(' ')
+                    if not date_start_active:
+                        date_start_active = datetime.fromisoformat(line_items[0])
+                        date_end_active = date_start_active
+
+                        new_active_stat = StatsActiveMail.objects.filter(email=item, name=item_name, date_start_active=date_start_active).first()
+                        if not new_active_stat:
+                            new_active_stat = StatsActiveMail(email=item, name=item_name)
+                        new_active_stat.date_start_active = date_start_active
+                        new_active_stat.date_end_active = date_end_active
+                        new_active_stat.save()
+                    else:
+                        tmp_date = datetime.fromisoformat(line_items[0])
+                        if abs(tmp_date - date_end_active) < timedelta(minutes=5):
+                            date_end_active = tmp_date
+                        else:
+                            new_active_stat.date_end_active = date_end_active
+                            new_active_stat.save()
+                            date_start_active = tmp_date
+                            date_end_active = date_start_active
+
+                            new_active_stat = StatsActiveMail.objects.filter(email=item, name=item_name, date_start_active=date_start_active).first()
+                            if not new_active_stat:
+                                new_active_stat = StatsActiveMail(email=item, name=item_name)
+                            new_active_stat.date_start_active = date_start_active
+                            new_active_stat.date_end_active = date_start_active
+                            new_active_stat.save()
+            new_active_stat.date_end_active = date_end_active
+            new_active_stat.save()
+
     def _update_stats_base_mail(self, current_date):
         server_email_list = StatsServerMail.objects.order_by('email').distinct().values_list('email')
         for item in server_email_list:
@@ -137,34 +182,55 @@ class UpdateStatsView(APIView):
                     new_base_stat.active_info += f"{timezone.localtime(item_active.date_start_active).time().strftime('%H:%M:%S')}-{timezone.localtime(item_active.date_end_active).time().strftime('%H:%M:%S')}\n"  #pyright: ignore
                 new_base_stat.save()
 
-    def _update_stats_active_mail(self, current_date):
-        server_email_list = StatsServerMail.objects.order_by('email').distinct().values_list('email')
-        for item in server_email_list:
-            item = item[0]
-            item_name = StatsServerMail.objects.get(email=item).name
+    def _update_stats_ip_mail(self, current_date):
+
+        if not DEBUG:
+            cmd = f'cd {BASE_DIR}/;sudo cat /var/log/nginx/access.log | grep "/?_task" | grep -F " - [{current_date[-2:]}/" > _tmp_result.txt'
+            os.system(cmd)
+
+        file = open(f"{BASE_DIR}/_tmp_result.txt", "r")
+        content_lines = file.read().split('\n')
+        file.close()
+
+        ip_list = []
+        for line in content_lines:
+            if line:
+                line_items = line.split(' ')
+                ip_item = line_items[0]
+                if ip_item not in ip_list:
+                    ip_list.append(ip_item)
+
+        for item in ip_list:
+            item_name = ""
+            try:
+                item_name = WhiteListIP.objects.get(ip_address=item).name
+            except BaseException:
+                pass
+
             if not DEBUG:
-                cmd = f'cd {BASE_DIR}/;sudo cat /var/log/dovecot/imap.log | grep {item} | grep "imap-login: Login" | grep {current_date} > _tmp_result.txt'
+                cmd = f'cd {BASE_DIR}/;sudo cat /var/log/nginx/access.log | grep "/?_task" | grep {item} | grep -F " - [{current_date[-2:]}/" > _tmp_result.txt'
                 os.system(cmd)
 
             file = open(f"{BASE_DIR}/_tmp_result.txt", "r")
             content_lines = file.read().split('\n')
             file.close()
+
             date_start_active = ""
             for line in content_lines:
                 if line:
                     line_items = line.split(' ')
                     if not date_start_active:
-                        date_start_active = datetime.fromisoformat(line_items[0])
+                        date_start_active = datetime.fromisoformat(current_date+"T"+line_items[3][13:])
                         date_end_active = date_start_active
 
-                        new_active_stat = StatsActiveMail.objects.filter(email=item, name=item_name, date_start_active=date_start_active).first()
+                        new_active_stat = StatsIPMail.objects.filter(ip_address=item, name=item_name, date_start_active=date_start_active).first()
                         if not new_active_stat:
-                            new_active_stat = StatsActiveMail(email=item, name=item_name)
+                            new_active_stat = StatsIPMail(ip_address=item, name=item_name)
                         new_active_stat.date_start_active = date_start_active
                         new_active_stat.date_end_active = date_end_active
                         new_active_stat.save()
                     else:
-                        tmp_date = datetime.fromisoformat(line_items[0])
+                        tmp_date = datetime.fromisoformat(current_date+"T"+line_items[3][13:])
                         if abs(tmp_date - date_end_active) < timedelta(minutes=5):
                             date_end_active = tmp_date
                         else:
@@ -173,9 +239,9 @@ class UpdateStatsView(APIView):
                             date_start_active = tmp_date
                             date_end_active = date_start_active
 
-                            new_active_stat = StatsActiveMail.objects.filter(email=item, name=item_name, date_start_active=date_start_active).first()
+                            new_active_stat = StatsIPMail.objects.filter(ip_address=item, name=item_name, date_start_active=date_start_active).first()
                             if not new_active_stat:
-                                new_active_stat = StatsActiveMail(email=item, name=item_name)
+                                new_active_stat = StatsIPMail(ip_address=item, name=item_name)
                             new_active_stat.date_start_active = date_start_active
                             new_active_stat.date_end_active = date_start_active
                             new_active_stat.save()

@@ -81,7 +81,7 @@ class StatsActiveMail(models.Model):
 
     
 class StatsIPMail(models.Model):
-    ip_address = models.CharField(max_length=1024, verbose_name="Адрес электронной почты", blank=True, null=True, default='')
+    ip_address = models.CharField(max_length=1024, verbose_name="IP адрес", blank=True, null=True, default='')
     date_start_active = models.DateTimeField(verbose_name="Дата", blank=True, null=True)
     date_end_active = models.DateTimeField(verbose_name="Дата", blank=True, null=True)
     name = models.CharField(max_length=1024, verbose_name="Имя пользователя", blank=True, null=True, default='')

@@ -35,10 +35,10 @@ class StatsActiveMailAdmin(admin.ModelAdmin):
 
 
 class StatsIPMailAdmin(admin.ModelAdmin):
-    list_display = ('email', 'date_start_active', 'date_end_active', 'name', 'comment')
+    list_display = ('ip_address', 'date_start_active', 'date_end_active', 'name', 'comment')
     date_hierarchy = 'date_start_active'
-    search_fields = ('email', 'name')
-    list_filter = ('email',)
+    search_fields = ('ip_address', 'name')
+    list_filter = ('ip_address',)
 
 
 admin.site.register(StatsAddListIP, StatsAddListIPAdmin)
@@ -46,3 +46,4 @@ admin.site.register(StatsLoginMail, StatsLoginMailAdmin)
 admin.site.register(StatsServerMail, StatsServerMailAdmin)
 admin.site.register(StatsBaseMail, StatsBaseMailAdmin)
 admin.site.register(StatsActiveMail, StatsActiveMailAdmin)
+admin.site.register(StatsIPMail, StatsIPMailAdmin)
