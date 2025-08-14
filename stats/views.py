@@ -130,7 +130,7 @@ class UpdateStatsView(APIView):
 
     def _update_stats_active_mail(self, current_date):
         server_email_list = StatsServerMail.objects.order_by('email').distinct().values_list('email')
-        for item in server_email_list[:1]:
+        for item in server_email_list:
             item = item[0]
             item_name = StatsServerMail.objects.get(email=item).name
             if not DEBUG:
