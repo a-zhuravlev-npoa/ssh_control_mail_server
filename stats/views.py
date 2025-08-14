@@ -1,20 +1,25 @@
 import os
-from datetime import datetime
+from datetime import datetime, date
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from ssh_control_mail_server.settings import PYTHON_PATH, BASE_DIR, DEBUG
 from white_list_ip.models import WhiteListIP
-from .models import StatsLoginMail
+from .models import StatsLoginMail, StatsServerMail, StatsBaseMail
 
+INFO_EMAIL = 'info@himmetproduct.ru'
 
 class UpdateStatsView(APIView):
     def get(self, request):
-        result = self._update_stats_login(request)
+        current_date = date.today().isoformat()
+
+        result = self._update_stats_login()
+        self._update_stats_server_mail()
+        self._update_stats_base_mail(current_date)
         return Response({'result': result})
     
-    def _update_stats_login(self, request):
+    def _update_stats_login(self):
         result = "OK"
         if not DEBUG:
             cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "login " > _tmp_result.txt'
@@ -62,3 +67,60 @@ class UpdateStatsView(APIView):
 
                 stats_login_item.save()
         return result
+    
+    def _update_stats_server_mail(self):
+        stat_server_email = StatsLoginMail.objects.order_by('email').distinct().values_list('email')
+        server_email_list = StatsServerMail.objects.order_by('email').distinct().values_list('email')
+        for item in stat_server_email:
+            if item not in server_email_list:
+                new_email = StatsServerMail(email=item[0])
+                new_email.save()
+
+    def _update_stats_base_mail(self, current_date):
+        server_email_list = StatsServerMail.objects.order_by('email').distinct().values_list('email')
+        for item in server_email_list:
+            item = item[0]
+            # Count Input email
+            if not DEBUG:
+                cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "> <{item}>" | grep {current_date} | wc -l > _tmp_result.txt'
+                os.system(cmd)
+
+            file = open(f"{BASE_DIR}/_tmp_result.txt", "r")
+            try:
+                count_input_email = int(file.read())
+            except BaseException:
+                count_input_email = -1
+            file.close()
+
+            # Count Output email
+            if not DEBUG:
+                cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "<{item}> ->" | grep {current_date} | wc -l > _tmp_result.txt'
+                os.system(cmd)
+
+            file = open(f"{BASE_DIR}/_tmp_result.txt", "r")
+            try:
+                count_output_email = int(file.read())
+            except BaseException:
+                count_output_email = -1
+            file.close()
+
+            # Count Input INFO email
+            if not DEBUG:
+                cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "<{INFO_EMAIL}> -> <{item}>"  | grep {current_date} | wc -l > _tmp_result.txt'
+                os.system(cmd)
+
+            file = open(f"{BASE_DIR}/_tmp_result.txt", "r")
+            try:
+                count_input_info_email = int(file.read())
+            except BaseException:
+                count_input_info_email = -1
+            file.close()
+
+            new_base_stat = StatsBaseMail.objects.filter(email=item, date=current_date).first()
+            if not new_base_stat:
+                new_base_stat = StatsBaseMail(email=item, 
+                                            date=current_date)
+            new_base_stat.count_input_email=count_input_email
+            new_base_stat.count_output_email=count_output_email
+            new_base_stat.count_input_info_email=count_input_info_email
+            new_base_stat.save()
