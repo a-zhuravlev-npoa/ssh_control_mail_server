@@ -5,7 +5,7 @@ from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ssh_control_mail_server.settings import PYTHON_PATH, BASE_DIR, DEBUG
+from ssh_control_mail_server.settings import PYTHON_PATH, BASE_DIR, DEBUG_USER
 from white_list_ip.models import WhiteListIP
 from .models import StatsLoginMail, StatsServerMail, StatsBaseMail, StatsActiveMail, StatsIPMail
 
@@ -24,7 +24,7 @@ class UpdateStatsView(APIView):
     
     def _update_stats_login(self):
         result = "OK"
-        if not DEBUG:
+        if not DEBUG_USER:
             cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "login " > _tmp_result.txt'
             os.system(cmd)
         file = open(f"{BASE_DIR}/_tmp_result.txt", "r")
@@ -84,7 +84,7 @@ class UpdateStatsView(APIView):
         for item in server_email_list:
             item = item[0]
             item_name = StatsServerMail.objects.get(email=item).name
-            if not DEBUG:
+            if not DEBUG_USER:
                 cmd = f'cd {BASE_DIR}/;sudo cat /var/log/dovecot/imap.log | grep {item} | grep "imap-login: Login" | grep {current_date} > _tmp_result.txt'
                 os.system(cmd)
 
@@ -129,7 +129,7 @@ class UpdateStatsView(APIView):
         for item in server_email_list:
             item = item[0]
             # Count Input email
-            if not DEBUG:
+            if not DEBUG_USER:
                 cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "> <{item}>" | grep {current_date} | wc -l > _tmp_result.txt'
                 os.system(cmd)
 
@@ -141,7 +141,7 @@ class UpdateStatsView(APIView):
             file.close()
 
             # Count Output email
-            if not DEBUG:
+            if not DEBUG_USER:
                 cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "<{item}> ->" | grep {current_date} | wc -l > _tmp_result.txt'
                 os.system(cmd)
 
@@ -153,7 +153,7 @@ class UpdateStatsView(APIView):
             file.close()
 
             # Count Input INFO email
-            if not DEBUG:
+            if not DEBUG_USER:
                 cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "<{INFO_EMAIL}> -> <{item}>"  | grep {current_date} | wc -l > _tmp_result.txt'
                 os.system(cmd)
 
@@ -184,7 +184,7 @@ class UpdateStatsView(APIView):
 
     def _update_stats_ip_mail(self, current_date):
 
-        if not DEBUG:
+        if not DEBUG_USER:
             cmd = f'cd {BASE_DIR}/;sudo cat /var/log/nginx/access.log | grep "/?_task" | grep -F " - [{current_date[-2:]}/" > _tmp_result.txt'
             os.system(cmd)
 
@@ -207,7 +207,7 @@ class UpdateStatsView(APIView):
             except BaseException:
                 pass
 
-            if not DEBUG:
+            if not DEBUG_USER:
                 cmd = f'cd {BASE_DIR}/;sudo cat /var/log/nginx/access.log | grep "/?_task" | grep {item} | grep -F " - [{current_date[-2:]}/" > _tmp_result.txt'
                 os.system(cmd)
 

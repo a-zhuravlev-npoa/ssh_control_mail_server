@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-l(xo9r+d=!mj75^z)uz2m=-81m+u+bbfis!=bj=r4ol74w!szt
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+DEBUG_USER = False
 
 DB_NAME = 'ssh-control'
 DB_USER = 'ssh-control'
@@ -104,6 +105,7 @@ if os.path.exists('{}/project_ip'.format(str(BASE_DIR))):
     STATIC_URL = 'http://mail.him-met.ru:83/static_ip/'
     MEDIA_URL = 'http://mail.him-met.ru:83/media_ip/'
     PYTHON_PATH = 'python'
+    DEBUG_USER = True
 else:
     DATABASES = {
         'default': {
