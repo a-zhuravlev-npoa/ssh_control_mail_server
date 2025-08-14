@@ -223,7 +223,7 @@ class UpdateStatsView(APIView):
                         date_start_active = datetime.fromisoformat(current_date+"T"+line_items[3][13:])
                         date_end_active = date_start_active
 
-                        new_active_stat = StatsIPMail.objects.filter(ip_address=item, name=item_name, date_start_active=date_start_active).first()
+                        new_active_stat = StatsIPMail.objects.filter(ip_address=item, date_start_active=date_start_active).first()
                         if not new_active_stat:
                             new_active_stat = StatsIPMail(ip_address=item, name=item_name)
                         new_active_stat.date_start_active = date_start_active
@@ -239,7 +239,7 @@ class UpdateStatsView(APIView):
                             date_start_active = tmp_date
                             date_end_active = date_start_active
 
-                            new_active_stat = StatsIPMail.objects.filter(ip_address=item, name=item_name, date_start_active=date_start_active).first()
+                            new_active_stat = StatsIPMail.objects.filter(ip_address=item, date_start_active=date_start_active).first()
                             if not new_active_stat:
                                 new_active_stat = StatsIPMail(ip_address=item, name=item_name)
                             new_active_stat.date_start_active = date_start_active
