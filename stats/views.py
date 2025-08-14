@@ -1,6 +1,7 @@
 import os
 from datetime import datetime, date, timedelta
 from django.shortcuts import render
+from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -133,7 +134,7 @@ class UpdateStatsView(APIView):
                                                                    date_start_active__lt=datetime.fromisoformat(current_date) + timedelta(days=1)).order_by('date_start_active')
                 new_base_stat.active_info = ""
                 for item_active in email_active_list:
-                    new_base_stat.active_info += f"{item_active.date_start_active.time().strftime('%H:%M:%S')}-{item_active.date_end_active.time().strftime('%H:%M:%S')}\n"  #pyright: ignore
+                    new_base_stat.active_info += f"{timezone.localtime(item_active.date_start_active).time().strftime('%H:%M:%S')}-{timezone.localtime(item_active.date_end_active).time().strftime('%H:%M:%S')}\n"  #pyright: ignore
                 new_base_stat.save()
 
     def _update_stats_active_mail(self, current_date):
