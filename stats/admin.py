@@ -1,6 +1,10 @@
 from django.contrib import admin
 from .models import StatsAddListIP, StatsLoginMail, StatsServerMail, StatsBaseMail, StatsActiveMail, StatsIPMail
 
+admin.site.site_header = "Система контроля корпоративного почтового сервера"
+admin.site.site_title = "Панель управления системы контроля корпоративного почтового сервера"
+admin.site.index_title = "Панель управления"
+
 
 class StatsAddListIPAdmin(admin.ModelAdmin):
     list_display = ('ip_address', 'date', 'name', 'comment')
