@@ -206,7 +206,7 @@ class UpdateStatsView(APIView):
             # Count Input INFO email
             if not DEBUG_USER:
                 if item == INFO_EMAIL:
-                    cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "<{item}> ->" | grpe {MAIN_DOMAIN_EMAIL}  | grep {current_date} | wc -l > _tmp_result.txt'
+                    cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "<{item}> ->" | grep {MAIN_DOMAIN_EMAIL}  | grep {current_date} | wc -l > _tmp_result.txt'
                 else:
                     cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "<{INFO_EMAIL}> -> <{item}>"  | grep {current_date} | wc -l > _tmp_result.txt'
                 os.system(cmd)
