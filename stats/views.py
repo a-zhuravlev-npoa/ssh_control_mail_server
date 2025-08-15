@@ -10,6 +10,10 @@ from white_list_ip.models import WhiteListIP
 from .models import StatsLoginMail, StatsServerMail, StatsBaseMail, StatsActiveMail, StatsIPMail
 
 INFO_EMAIL = 'info@himmetproduct.ru'
+MAIN_DOMAIN_EMAIL = '@him-met.ru'
+SUBSTR_BILL = 'Счет'
+SUBSTR_KP = 'КП'
+SIZE_MESSAGE_BILL = 100000
 
 class UpdateStatsView(APIView):
     def get(self, request):
@@ -153,9 +157,58 @@ class UpdateStatsView(APIView):
                 count_output_email = -1
             file.close()
 
+            # Count Output email BILL and KP
+            if not DEBUG_USER:
+                cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "<{item}> ->" | grep {current_date} > _tmp_result.txt'
+                os.system(cmd)
+
+            file = open(f"{BASE_DIR}/_tmp_result.txt", "r")
+            content_lines = file.read().split('\n')
+            file.close()
+
+            count_output_bill_email = 0
+            count_output_kp_email = 0
+            for line in content_lines:
+                if line:
+                    line_items = line.split(' ')
+                    size = 0
+                    subject = ""
+                    flag_size = False
+                    flag_subject = False
+                    flag_bill = False
+                    flag_kp = False
+
+                    for line_item in line_items:
+                        if flag_size:
+                            try:
+                                size = int(line_item.replace(',',''))
+                            except BaseException:
+                                size = 0
+                            flag_size = False
+                        if flag_subject:
+                            subject += f"{line_item} "
+                            if line_item == SUBSTR_KP and int(size) > SIZE_MESSAGE_BILL:
+                                flag_kp = True
+                            if SUBSTR_BILL.upper() in line_item.upper() and int(size) > SIZE_MESSAGE_BILL:
+                                flag_bill = True
+
+                            if line_item[-2:] == '",':
+                                flag_subject = False
+                        if line_item == "size:":
+                            flag_size = True
+                        if line_item == "Subject:":
+                            flag_subject = True
+                    if flag_kp:
+                        count_output_kp_email += 1
+                    if flag_bill:
+                        count_output_bill_email += 1
+
             # Count Input INFO email
             if not DEBUG_USER:
-                cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "<{INFO_EMAIL}> -> <{item}>"  | grep {current_date} | wc -l > _tmp_result.txt'
+                if item == INFO_EMAIL:
+                    cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "<{item}> ->" | grpe {MAIN_DOMAIN_EMAIL}  | grep {current_date} | wc -l > _tmp_result.txt'
+                else:
+                    cmd = f'cd {BASE_DIR}/;sudo cat /var/log/mail.log | grep "<{INFO_EMAIL}> -> <{item}>"  | grep {current_date} | wc -l > _tmp_result.txt'
                 os.system(cmd)
 
             file = open(f"{BASE_DIR}/_tmp_result.txt", "r")
@@ -164,6 +217,7 @@ class UpdateStatsView(APIView):
             except BaseException:
                 count_input_info_email = -1
             file.close()
+
             if count_input_email or count_output_email or count_input_info_email:
                 new_base_stat = StatsBaseMail.objects.filter(email=item, date=current_date).first()
                 if not new_base_stat:
@@ -174,6 +228,8 @@ class UpdateStatsView(APIView):
                 new_base_stat.count_input_email=count_input_email
                 new_base_stat.count_output_email=count_output_email
                 new_base_stat.count_input_info_email=count_input_info_email
+                new_base_stat.count_output_bill_email=count_output_bill_email
+                new_base_stat.count_output_kp_email=count_output_kp_email
 
                 email_active_list = StatsActiveMail.objects.filter(email=item, 
                                                                    date_start_active__gte=current_date,
