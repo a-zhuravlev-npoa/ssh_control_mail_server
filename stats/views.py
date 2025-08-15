@@ -218,7 +218,7 @@ class UpdateStatsView(APIView):
                 count_input_info_email = -1
             file.close()
 
-            if count_input_email or count_output_email or count_input_info_email:
+            if count_input_email > 0 or count_output_email > 0 or count_input_info_email > 0:
                 new_base_stat = StatsBaseMail.objects.filter(email=item, date=current_date).first()
                 if not new_base_stat:
                     item_name = StatsServerMail.objects.get(email=item).name
